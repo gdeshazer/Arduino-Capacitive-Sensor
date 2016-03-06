@@ -1,0 +1,8 @@
+# Ignored files
+
+.cproject
+.project
+.settings/
+Release/
+arduino/
+spec.d
