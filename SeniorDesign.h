@@ -9,6 +9,8 @@
 #include "Arduino.h"
 #include <Wire.h>
 
+class Rangefinder;
+class IRsensor;
 int getSensor();
 void dataRequest();
 void timeSet(int bytes);

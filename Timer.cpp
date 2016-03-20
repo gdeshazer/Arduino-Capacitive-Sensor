@@ -5,17 +5,17 @@
  *  Timer class designed to handle time sync between the Beaglebone
  *  and the Arduino.
  *
- * Currently testing both this class and general data transfer
+ *	UNUSED CLASS
  */
 
 #include "Timer.h"
+#include <Arduino.h>
+
 
 Timer::Timer() {
-	// TODO Auto-generated constructor stub
 	_time = millis();
 	_offset = 0;
 }
-
 
 
 unsigned long Timer::getTime(){
@@ -23,10 +23,12 @@ unsigned long Timer::getTime(){
 
 }
 
+
 void Timer::setTime(){
 	_time = millis() - _offset;
 
 }
+
 
 void Timer::setOffset(unsigned long off){
 	_offset = off;
