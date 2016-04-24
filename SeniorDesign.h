@@ -6,13 +6,14 @@
 
 #ifndef _SeniorDesign_H_
 #define _SeniorDesign_H_
+
 #include "Arduino.h"
 #include <Wire.h>
 
 class Rangefinder;
 class IRsensor;
-int getSensor();
 void dataRequest();
+int getSensor();
 void timeSet(int bytes);
 void setup();
 void loop();

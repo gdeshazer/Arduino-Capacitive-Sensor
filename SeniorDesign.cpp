@@ -20,7 +20,6 @@ const int SensorCount = 2;
 #define flex 1
 #define LED 13
 
-
 class IRsensor{
 public:
 	IRsensor(){
@@ -62,22 +61,40 @@ void dataRequest(){
 	char a[sizeof(float)*SensorCount];
 	float results[SensorCount];
 
-	//currently only sending the IR value twice in a row
+//	currently only sending the IR value twice in a row
 	results[0]= ir.getVal();
 	results[1]= ir.getVal();
 
-	//compress separate float readings into single byte array
+//	compress separate float readings into single byte array
 	for(int i = 0; i < SensorCount; i++){
 		int start = i * sizeof(float);
 		memcpy(&(a[start]), &(results[i]), sizeof(float));
 	}
 
-	//flip bytes
-	//  for(int i = 0, j = sizeof(float)-1; i < j; i++,j--){
-	//    char temp = a[i];
-	//    a[i] = a[j];
-	//    a[j] = temp;
-	//  }
+//	char a[4];
+//
+//	float out = ir.getVal();
+//
+//	memcpy(&a, &out, sizeof(float));
+//
+//	Serial.print("Sending: ");
+//	Serial.println(out);
+
+//	Serial.print(a[0]);
+//	Serial.print("\t");
+//	Serial.print(a[1]);
+//	Serial.print("\t");
+//	Serial.print(a[2]);
+//	Serial.print("\t");
+//	Serial.print(a[3]);
+//	Serial.println("\n");
+
+//	flip bytes
+	  for(int i = 0, j = (SensorCount*sizeof(float))-1; i < j; i++,j--){
+	    char temp = a[i];
+	    a[i] = a[j];
+	    a[j] = temp;
+	  }
 
 	Wire.write(a,4*SensorCount);
 
@@ -91,14 +108,14 @@ void timeSet(int bytes){
 void loop(){
 
 	//Flex sensor reading
-	int avg = 0;
-	double sum = 0;
-	for(int i = 0; i < 100; i++){
-		sum += analogRead(flex);
-	}
-	avg = sum/ 100;
-
-	//read sensor values
-	Serial.println(avg);
+//	int avg = 0;
+//	double sum = 0;
+//	for(int i = 0; i < 100; i++){
+//		sum += analogRead(flex);
+//	}
+//	avg = sum/ 100;
+//
+//	//read sensor values
+//	Serial.println(avg);
 	ir.readSensor();
 }
