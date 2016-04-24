@@ -42,18 +42,6 @@ private:
 }ir;
 
 
-void setup(){
-	pinMode(LED, OUTPUT);
-
-	Wire.begin(0x10);
-
-	Wire.onRequest(dataRequest);
-
-	Serial.begin(115200);
-
-}
-
-
 void dataRequest(){
 	//char array -> byte array
 	//with more sensor readings this array
@@ -71,25 +59,7 @@ void dataRequest(){
 		memcpy(&(a[start]), &(results[i]), sizeof(float));
 	}
 
-//	char a[4];
-//
-//	float out = ir.getVal();
-//
-//	memcpy(&a, &out, sizeof(float));
-//
-//	Serial.print("Sending: ");
-//	Serial.println(out);
-
-//	Serial.print(a[0]);
-//	Serial.print("\t");
-//	Serial.print(a[1]);
-//	Serial.print("\t");
-//	Serial.print(a[2]);
-//	Serial.print("\t");
-//	Serial.print(a[3]);
-//	Serial.println("\n");
-
-//	flip bytes
+//	flip bytes  [ Changing "endianess" of the bytes ]
 	  for(int i = 0, j = (SensorCount*sizeof(float))-1; i < j; i++,j--){
 	    char temp = a[i];
 	    a[i] = a[j];
@@ -100,10 +70,23 @@ void dataRequest(){
 
 }
 
+
 void timeSet(int bytes){
 	//does nothing
 }
 
+
+
+void setup(){
+	pinMode(LED, OUTPUT);
+
+	Wire.begin(0x10);
+
+	Wire.onRequest(dataRequest);
+
+	Serial.begin(115200);
+
+}
 
 void loop(){
 
