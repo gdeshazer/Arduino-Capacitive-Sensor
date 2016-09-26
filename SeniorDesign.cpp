@@ -14,6 +14,8 @@
 #include <Wire.h>
 #include <stdlib.h>
 
+#define TWI_FREQ 400000L
+
 const int SensorCount = 4;
 
 #define irsensor 0
@@ -31,16 +33,16 @@ public:
 		_index = 0;
 	}
 	void readSensor(){
-		_reading = (float) analogRead(irsensor);
+		_reading = analogRead(irsensor);
 
 	}
 
-	float getVal(){
+	int getVal(){
 		return _reading;
 	}
 
 private:
-	float _reading;
+	int _reading;
 	int _index;
 
 }ir;
@@ -61,15 +63,15 @@ public:
 	}
 
 	void readSensor(){
-		_reading = (float) analogRead(_pinNumber);
+		_reading = analogRead(_pinNumber);
 	}
 
-	float getVal(){
+	int getVal(){
 		return _reading;
 	}
 
 private:
-	float _reading;
+	int _reading;
 	int _pinNumber;
 }id1(1), id2(2), id3(3);
 
@@ -82,8 +84,8 @@ void dataRequest(){
 	//char array -> byte array
 	//with more sensor readings this array
 	//should go up in size
-	char a[sizeof(float)*SensorCount];
-	float results[SensorCount];
+	char a[sizeof(int)*SensorCount];
+	int results[SensorCount];
 
 	//  currently only sending the IR value twice in a row
 	results[0]= ir.getVal();
@@ -91,10 +93,10 @@ void dataRequest(){
 	results[2]= id2.getVal();
 	results[3]= id3.getVal();
 
-	//  compress separate float readings into single byte array
+	//  compress separate int readings into single byte array
 	for(int i = 0; i < SensorCount; i++){
-		int start = i * sizeof(float);
-		memcpy(&(a[start]), &(results[i]), sizeof(float));
+		int start = i * sizeof(int);
+		memcpy(&(a[start]), &(results[i]), sizeof(int));
 	}
 
 	//  char a[4];
@@ -117,13 +119,13 @@ void dataRequest(){
 	//  Serial.println("\n");
 
 	//  flip bytes
-	for(int i = 0, j = (SensorCount*sizeof(float))-1; i < j; i++,j--){
+	for(int i = 0, j = (SensorCount*sizeof(int))-1; i < j; i++,j--){
 		char temp = a[i];
 		a[i] = a[j];
 		a[j] = temp;
 	}
 
-	Wire.write(a,4*SensorCount);
+	Wire.write(a,2*SensorCount);
 
 }
 
