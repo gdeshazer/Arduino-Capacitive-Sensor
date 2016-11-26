@@ -1,8 +1,9 @@
-// Only modify this file to include
-// - function definitions (prototypes)
-// - include files
-// - external variable definitions
-// In the appropriate section
+/*
+ * Created on: March 6, 2016
+ * 	   Author: Grant DeShazer
+ *
+ *	See the class file for notes on implementation.
+ */
 
 #ifndef _SeniorDesign_H_
 #define _SeniorDesign_H_
