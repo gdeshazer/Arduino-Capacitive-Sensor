@@ -13,20 +13,21 @@
  *	  The Arduino is constantly taking measurements with nothing
  *	  being saved localy.  When the Pi requests data, the Arduino
  *	  will send a byte array with whatever the most recent reading
- *	  is.  Because I2C requests opperate on the Interupt channel for
- *	  the Arduino's processor, when a request for data comes in,
- *	  there's no guarentee where the Arduino will be in terms of data
- *	  collection.  As a result it is difficult, at best, to quantify
- *	  how old a particular reading is.  It is assumened, then, that
- *	  the data readings were taken at exactly the same time and have
- *	  not aged significantly.
+ *	  is.  Because I2C requests opperate on the Interupt channel
+ *	  for the Arduino's processor, when a request for data comes
+ *	  in, there's no guarentee where the Arduino will be in terms
+ *	  of data collection.  As a result it is difficult, at best,
+ *	  to quantify how old a particular reading is.  It is assumened,
+ *	  then, that the data readings were taken at exactly the same
+ *	  time and have not aged significantly.
  *
  *	  Ideally the code is written to be expandable so that more
- *	  sensors could be implemented without the need to re-write the code.
- *	  All that would be necessary would be to change the SensorCount constant
- *	  and add more Inductive objects to account for additional sensors.
- *	  		Future implementations might need to use an object array whose
- *	  		size would corespond with the variable SensorCount.
+ *	  sensors could be implemented without the need to re-write the
+ *	  code.  All that would be necessary would be to change the
+ *	  SensorCount constant and add more Inductive objects to account
+ *	  for additional sensors.
+ *	  		Future implementations might need to use an object array
+ *	  		whose size would corespond with the variable SensorCount.
  */
 
 #include <Arduino.h>
